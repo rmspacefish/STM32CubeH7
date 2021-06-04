@@ -24,6 +24,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "stm32h7xx_nucleo.h"
 
+#define STM_USE_PERIPHERAL_TX_BUFFER_MPU_PROTECTION 0
+
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 /* User can use this section to tailor SPIx instance used and associated

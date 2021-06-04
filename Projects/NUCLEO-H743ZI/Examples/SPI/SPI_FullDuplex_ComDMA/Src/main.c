@@ -135,6 +135,14 @@ int main(void)
   BSP_LED_Off(LED1);
 #endif /* MASTER_BOARD */
 
+  /* Clean D-cache.
+     Make sure the address is 32-byte aligned and add 32-bytes to length,
+     in case it overlaps cacheline
+     See https://community.st.com/s/article/FAQ-DMA-is-not-working-on-STM32H7-devices */
+#if STM_USE_PERIPHERAL_TX_BUFFER_MPU_PROTECTION == 0
+  SCB_CleanDCache_by_Addr((uint32_t*)(((uint32_t)aTxBuffer) & ~(uint32_t)0x1F), sizeof(aTxBuffer) + 32);
+#endif
+
   /*##-2- Start the Full Duplex Communication process ########################*/  
   /* While the SPI in TransmitReceive process, user can transmit data through 
      "aTxBuffer" buffer & receive data through "aRxBuffer" */
